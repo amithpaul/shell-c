@@ -11,6 +11,6 @@ int main(int argc, char *argv[]) {
   // Wait for user input
   char input[100];
   fgets(input, 100, stdin);
-  printf("%s: command not found\n", input);
+  printf("%s: command not found", input);
   return 0;
 }
