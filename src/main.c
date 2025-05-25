@@ -30,6 +30,31 @@ int main(int argc, char *argv[]) {
       printf("%s\n",input+5);
     }
 
+    else if (strncmp("type",input,4)==0)
+    {
+      //strtok used to split the whole string into tokens
+      char *comTok = strtok(input," "); 
+      
+      while (comTok!=NULL)
+      {
+        comTok=strtok(NULL," ");
+        if (strncmp("echo",input,4)==0)
+        {
+          printf("echo is a shell builtin\n");
+        }
+        else if (strncmp("exit",input,4)==0)
+        {
+          printf("exit is a shell builtin\n");
+        }
+        else
+        {
+          printf("%s: not found\n",comTok);
+        }
+         
+      }
+      
+    }
+
     else
     {
       printf("%s: command not found\n", input);
