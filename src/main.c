@@ -38,17 +38,21 @@ int main(int argc, char *argv[]) {
       while (comTok!=NULL)
       {
         comTok=strtok(NULL," ");
-        if (strncmp("echo",input,4)==0)
+
+        if (strncmp("echo",comTok,4)==0)
         {
           printf("echo is a shell builtin\n");
+          break;
         }
-        else if (strncmp("exit",input,4)==0)
+        else if (strncmp("exit",comTok,4)==0)
         {
           printf("exit is a shell builtin\n");
+          break;
         }
         else
         {
           printf("%s: not found\n",comTok);
+          break;
         }
          
       }
