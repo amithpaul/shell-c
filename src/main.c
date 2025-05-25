@@ -6,16 +6,27 @@ int main(int argc, char *argv[]) {
   // Flush after every printf
   setbuf(stdout, NULL);
   while (1)
-    {
-  // Uncomment this block to pass the first stage
-  printf("$ ");
+  {
+    // Uncomment this block to pass the first stage
+    printf("$ ");
 
-  // Wait for user input
-  
-    char input[100];
-    fgets(input, 100, stdin);
+
+    // Wait for user input
+    char input[512];
+    if(fgets(input, 100, stdin)==NULL){
+      break;
+    }
+
     input[strlen(input)-1]='\0';
-    printf("%s: command not found\n", input);
+    
+    if (strcmp(input,"exit 0")==0)
+    {
+      break;
+    }
+    else{
+      printf("%s: command not found\n", input);
+    }
+
   }
   return 0;
 }
