@@ -10,10 +10,11 @@ int main(int argc, char *argv[]) {
     // Uncomment this block to pass the first stage
     printf("$ ");
 
-
     // Wait for user input
     char input[512];
-    if(fgets(input, 100, stdin)==NULL){
+
+    if(fgets(input, 100, stdin)==NULL)
+    {
       break;
     }
 
@@ -23,10 +24,17 @@ int main(int argc, char *argv[]) {
     {
       break;
     }
-    else{
-      printf("%s: command not found\n", input);
+
+    else if (strncmp("echo",input,4)==0)
+    {
+      printf("%s\n",input+5);
     }
 
+    else
+    {
+      printf("%s: command not found\n", input);
+    }
+    
   }
   return 0;
 }
