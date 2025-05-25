@@ -49,6 +49,11 @@ int main(int argc, char *argv[]) {
           printf("exit is a shell builtin\n");
           break;
         }
+        else if (strncmp("type",comTok,4)==0)
+        {
+          printf("type is a shell builtin\n");
+          break;
+        }
         else
         {
           printf("%s: not found\n",comTok);
