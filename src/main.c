@@ -37,11 +37,10 @@ void checkType(char *input)
     }
     free(path);
   }    
-  else
-  {
-    printf("%s: not found\n",input+5);
-    return;
-  }
+  
+  printf("%s: not found\n",input+5);
+  return;
+  
       
 }
 
