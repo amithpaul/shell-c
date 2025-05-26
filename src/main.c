@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
     else if (strncmp("pwd",input,4)==0)
     {
       char pwd[100];
-      printf("%s",getcwd(pwd,sizeof(pwd)));
+      printf("%s\n",getcwd(pwd,sizeof(pwd)));
       continue;
     }
     
