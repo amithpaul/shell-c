@@ -28,7 +28,7 @@ void checkType(char *input)
 
       if (access(full_path,X_OK)==0) //access is linux system call used to check the acess of a process
       {
-        printf("%s is %s",com_tocheck,full_path);
+        printf("%s is %s\n",com_tocheck,full_path);
         free(path);
         return;
       }
