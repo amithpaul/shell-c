@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
       continue;
     }
     
-    char *args;
+    char *args[1024];
     int i = 0;
     
     char *tok = strtok(input," ");
