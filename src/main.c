@@ -93,13 +93,16 @@ int main(int argc, char *argv[]) {
     }
     args[i]=NULL;
 
-    
-    if(execvp(args[0],args))
+    pid_t pid = fork();
+    if (pid==0)
     {
-      continue;
+      execvp(args[0],args);
+      printf("%s: command not found\n", input); 
+    } else {
+      // Parent waits
+      int status;
+      waitpid(pid, &status, 0);
     }
-
-    printf("%s: command not found\n", input);      
   }
   return 0;
 }
