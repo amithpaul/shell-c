@@ -13,7 +13,8 @@ void checkType(char *input)
 
   if (strncmp("echo",com_tocheck,4)==0 || 
       strncmp("exit",com_tocheck,4)==0 ||
-      strncmp("type",com_tocheck,4)==0 )
+      strncmp("pwd",com_tocheck,4)==0 ||
+      strncmp("type",com_tocheck,4)==0)
   {
     printf("%s is a shell builtin\n",input+5);
     return;
