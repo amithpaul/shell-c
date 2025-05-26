@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
     args[i]=NULL;
 
     
-    if(execvp(args[0],args)!=-1)
+    if(execvp(args[0],args)!==-1)
     {
       continue;
     }
