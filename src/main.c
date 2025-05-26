@@ -42,22 +42,6 @@ void checkType(char *input)
   return;     
 }
 
-char *getTok(char *Tok, int limit){
-  char *newTok= strtok(Tok," ");
-  char newTokSet[1024];
-  if(limit==1){   
-    return newTok;
-  }
-  else{
-    snprintf(newTokSet,sizeof(newTok),"%s",newTok);
-    while(newTok!=NULL){
-      newTok= strtok(Tok," ");
-      snprintf(newTokSet,sizeof(newTok)," %s",newTok);
-    }
-    free(newTok);
-    return newTokSet;
-  }
-}
 
 int main(int argc, char *argv[]) {
   // Flush after every printf
@@ -89,29 +73,35 @@ int main(int argc, char *argv[]) {
     else if (strncmp("echo",input,4)==0)
     {
       printf("%s\n",input+5);
+      continue;
     }
     
     //type check
     else if (strncmp("type",input,4)==0)
     {
       checkType(input);
-      
-    }
-    else if (strstr(path,getTok(input,1))!=NULL)
-    {
-      char execPath[MAX_COM_LENGTH+sizeof(path)];
-      snprintf(execPath,sizeof(execPath),"%s/%s",path,getTok(input,0));
-      while(input!=NULL){
-        strcat(execPath,strtok(NULL," "));
-      }
-      system(execPath);
+      continue;
     }
     
-    else
+    char *args;
+    int i = 0;
+    
+    char *tok = strtok(input," ");
+    while (tok!=NULL)
     {
-      printf("%s: command not found\n", input);
+      args[i++]=tok;
+      tok=strtok(NULL," ");
+    }
+    args[i]=NULL;
+
+    pid_t pid = fork();
+    if (pid==0)
+    {
+      execvp(args[0],args);
+      printf("%s: command not found\n", input); 
     }
     
+   
   }
   return 0;
 }
