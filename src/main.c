@@ -42,7 +42,7 @@ void checkType(char *input)
   return;     
 }
 
-char getTok(char Tok, int limit){
+char getTok(char *Tok, int limit){
   char *newTok= strtok(Tok," ");
   char newTokSet[1024];
   if(limit==1){   
@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
     else if (strstr(path,strtok(input," "))!=NULL)
     {
       char execPath[MAX_COM_LENGTH+sizeof(path)];
-      snprintf(execPath,sizeof(execPath),"%s/%s",path,getTok(input,0));
+      snprintf(execPath,sizeof(execPath),"%s/%s",path,getTok(*input,0));
       while(input!=NULL){
         strcat(execPath,strtok(NULL," "));
       }
