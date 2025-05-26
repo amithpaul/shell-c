@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
     args[i]=NULL;
 
     
-    exec(args[0],args);
+    execvp(args[0],args);
     printf("%s: command not found\n", input); 
     
     
