@@ -46,14 +46,13 @@ void checkType(char *input)
 int main(int argc, char *argv[]) {
   // Flush after every printf
   setbuf(stdout, NULL);
+  
+  char input[MAX_COM_LENGTH];
   while (1)
   {
     // Uncomment this block to pass the first stage
     printf("$ ");
-
     // Wait for user input
-    char input[512];
-    
     //empty check
     if(fgets(input, 100, stdin)==NULL)
     {
@@ -94,12 +93,10 @@ int main(int argc, char *argv[]) {
     }
     args[i]=NULL;
 
-    pid_t pid = fork();
-    if (pid==0)
-    {
-      execvp(args[0],args);
-      printf("%s: command not found\n", input); 
-    }
+    
+    exec(args[0],args);
+    printf("%s: command not found\n", input); 
+    
     
    
   }
