@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
     else if (strstr(path,strtok(input," "))!=NULL)
     {
       char execPath[MAX_COM_LENGTH+sizeof(path)];
-      snprintf(execPath,sizeof(execPath),"%s/%s",path,getTok(*input,0));
+      snprintf(execPath,sizeof(execPath),"%s/%s",path,getTok(input,0));
       while(input!=NULL){
         strcat(execPath,strtok(NULL," "));
       }
