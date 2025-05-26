@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
       checkType(input);
       
     }
-    else if (strstr(path,getTok(input,1)!=NULL))
+    else if (strstr(path,getTok(input,1))!=NULL)
     {
       char execPath[MAX_COM_LENGTH+sizeof(path)];
       snprintf(execPath,sizeof(execPath),"%s/%s",path,getTok(input,0));
