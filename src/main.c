@@ -95,6 +95,7 @@ int main(int argc, char *argv[]) {
     args[i]=NULL;
 
     pid_t pid = fork();
+
     if (pid==0)
     {
       execvp(args[0],args);
@@ -104,6 +105,7 @@ int main(int argc, char *argv[]) {
       int status;
       waitpid(pid, &status, 0);
     }
+    
   }
   return 0;
 }
