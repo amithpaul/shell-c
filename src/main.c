@@ -98,7 +98,9 @@ int main(int argc, char *argv[]) {
     {
       if(chdir(argv[1])){
         printf("cd: %s: No such file or directory\n",argv[1]);
+        continue;
       }
+      continue;
     }
     
     char *args[1024];
