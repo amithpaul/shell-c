@@ -94,11 +94,12 @@ int main(int argc, char *argv[]) {
     args[i]=NULL;
 
     
-    execvp(args[0],args);
-    printf("%s: command not found\n", input); 
-    
-    
-   
+    if(execvp(args[0],args)!=-1)
+    {
+      continue;
+    }
+
+    printf("%s: command not found\n", input);      
   }
   return 0;
 }
