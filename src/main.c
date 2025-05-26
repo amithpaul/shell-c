@@ -7,7 +7,9 @@
 
 void checkType(char *input)
 { 
+  char *path=strdup(getenv("PATH"));
   char *com_tocheck= input +5;
+
   if (strncmp("echo",com_tocheck,4)==0 || 
       strncmp("exit",com_tocheck+5,4)==0 ||
       strncmp("type",com_tocheck,4)==0 )
@@ -15,14 +17,13 @@ void checkType(char *input)
     printf("%s is a shell builtin\n",input+5);
     return;
   }
-  char *path=strdup(getenv("PATH"));
-  if (path!=NULL)
+  
+  else if (path!=NULL)
   {
     char *dir =strtok(path,":");
     while (dir!=NULL)
     {
       char full_path[MAX_COM_LENGTH];
-
       //appends command to directory path
       snprintf(full_path,sizeof(full_path),"%s/%s",dir,com_tocheck);
 
