@@ -2,6 +2,45 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define MAX_COM_LENGTH 1024
+
+void checkType(char *input)
+{ 
+    char *com_tocheck= input +5;
+    if (strncmp("echo",com_tocheck,4)==0 || 
+        strncmp("exit",com_tocheck+5,4)==0 ||
+        strncmp("type",com_tocheck,4)==0 )
+    {
+      printf("%s is a shell builtin\n",input+5);
+      return;
+    }
+    char *path=strdup(getenv("PATH"));
+    if (path!=NULL)
+    {
+      char *dir =strtok(path,":");
+      while (dir!=NULL)
+      {
+        char full_path[MAX_COM_LENGTH];
+        //appends command to directory path
+        snprintf(full_path,sizeof(full_path),"%s/%s",dir,com_tocheck);
+        if (access(full_path,X_OK)==0) //access is linux system call used to check the acess of a process
+        {
+          //print
+          free(path);
+          return;
+        }
+        dir = strtok(NULL,":");
+      }
+      free(path);
+    }    
+    else
+    {
+      printf("%s: not found\n",input+5);
+      return;
+    }
+      
+}
+
 int main(int argc, char *argv[]) {
   // Flush after every printf
   setbuf(stdout, NULL);
@@ -13,6 +52,7 @@ int main(int argc, char *argv[]) {
     // Wait for user input
     char input[512];
 
+    //empty check
     if(fgets(input, 100, stdin)==NULL)
     {
       break;
@@ -20,50 +60,24 @@ int main(int argc, char *argv[]) {
 
     input[strlen(input)-1]='\0';
     
+    //exit condition
     if (strcmp(input,"exit 0")==0)
     {
       break;
     }
 
+    //echo statement exec
     else if (strncmp("echo",input,4)==0)
     {
       printf("%s\n",input+5);
     }
 
+    //type check
     else if (strncmp("type",input,4)==0)
     {
-      //strtok used to split the whole string into tokens
-      char *comTok = strtok(input," "); 
-      
-      while (comTok!=NULL)
-      {
-        comTok=strtok(NULL," ");
-
-        if (strncmp("echo",comTok,4)==0)
-        {
-          printf("echo is a shell builtin\n");
-          break;
-        }
-        else if (strncmp("exit",comTok,4)==0)
-        {
-          printf("exit is a shell builtin\n");
-          break;
-        }
-        else if (strncmp("type",comTok,4)==0)
-        {
-          printf("type is a shell builtin\n");
-          break;
-        }
-        else
-        {
-          printf("%s: not found\n",comTok);
-          break;
-        }
-         
-      }
+      checkType(input);
       
     }
-
     else
     {
       printf("%s: command not found\n", input);
