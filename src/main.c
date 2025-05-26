@@ -7,38 +7,40 @@
 
 void checkType(char *input)
 { 
-    char *com_tocheck= input +5;
-    if (strncmp("echo",com_tocheck,4)==0 || 
-        strncmp("exit",com_tocheck+5,4)==0 ||
-        strncmp("type",com_tocheck,4)==0 )
+  char *com_tocheck= input +5;
+  if (strncmp("echo",com_tocheck,4)==0 || 
+      strncmp("exit",com_tocheck+5,4)==0 ||
+      strncmp("type",com_tocheck,4)==0 )
+  {
+    printf("%s is a shell builtin\n",input+5);
+    return;
+  }
+  char *path=strdup(getenv("PATH"));
+  if (path!=NULL)
+  {
+    char *dir =strtok(path,":");
+    while (dir!=NULL)
     {
-      printf("%s is a shell builtin\n",input+5);
-      return;
-    }
-    char *path=strdup(getenv("PATH"));
-    if (path!=NULL)
-    {
-      char *dir =strtok(path,":");
-      while (dir!=NULL)
+      char full_path[MAX_COM_LENGTH];
+
+      //appends command to directory path
+      snprintf(full_path,sizeof(full_path),"%s/%s",dir,com_tocheck);
+
+      if (access(full_path,X_OK)==0) //access is linux system call used to check the acess of a process
       {
-        char full_path[MAX_COM_LENGTH];
-        //appends command to directory path
-        snprintf(full_path,sizeof(full_path),"%s/%s",dir,com_tocheck);
-        if (access(full_path,X_OK)==0) //access is linux system call used to check the acess of a process
-        {
-          //print
-          free(path);
-          return;
-        }
-        dir = strtok(NULL,":");
+        printf("%s is %s",com_tocheck,full_path);
+        free(path);
+        return;
       }
-      free(path);
-    }    
-    else
-    {
-      printf("%s: not found\n",input+5);
-      return;
+      dir = strtok(NULL,":");
     }
+    free(path);
+  }    
+  else
+  {
+    printf("%s: not found\n",input+5);
+    return;
+  }
       
 }
 
