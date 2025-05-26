@@ -42,6 +42,23 @@ void checkType(char *input)
   return;     
 }
 
+char getTok(char *Tok, int limit){
+  char *newTok= strtok(Tok," ");
+  char *newTokSet[1024];
+  if(limit==1){   
+    return newTok;
+  }
+  else{
+    snprintf(newTokSet,sizeof(newTok),"%s",newTok);
+    while(newTok!=NULL){
+      *newTok= strtok(Tok," ");
+      snprintf(newTokSet,sizeof(newTok)," %s",newTok);
+    }
+    free(newTok);
+    return newTokSet;
+  }
+}
+
 int main(int argc, char *argv[]) {
   // Flush after every printf
   setbuf(stdout, NULL);
@@ -52,15 +69,16 @@ int main(int argc, char *argv[]) {
 
     // Wait for user input
     char input[512];
-
+    
     //empty check
     if(fgets(input, 100, stdin)==NULL)
     {
       break;
     }
-
-    input[strlen(input)-1]='\0';
     
+    input[strlen(input)-1]='\0';
+    char *path=strdup(getenv("PATH"));
+
     //exit condition
     if (strcmp(input,"exit 0")==0)
     {
@@ -72,13 +90,23 @@ int main(int argc, char *argv[]) {
     {
       printf("%s\n",input+5);
     }
-
+    
     //type check
     else if (strncmp("type",input,4)==0)
     {
       checkType(input);
       
     }
+    else if (strstr(path,getTok(input,1))!=NULL)
+    {
+      char execPath[MAX_COM_LENGTH+sizeof(path)];
+      snprintf(execPath,sizeof(execPath),"%s/%s",path,getTok(input,0));
+      while(input!=NULL){
+        strcat(execPath,strtok(NULL," "));
+      }
+      system(execPath);
+    }
+    
     else
     {
       printf("%s: command not found\n", input);
