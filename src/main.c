@@ -46,7 +46,7 @@ char getTok(char *Tok, int limit){
   char *newTok= strtok(Tok," ");
   char *newTokSet[1024];
   if(limit==1){   
-    return newTok;
+    return *newTok;
   }
   else{
     snprintf(newTokSet,sizeof(newTok),"%s",newTok);
