@@ -42,7 +42,7 @@ void checkType(char *input)
   return;     
 }
 
-char getTok(char *Tok, int limit){
+char *getTok(char *Tok, int limit){
   char *newTok= strtok(Tok," ");
   char newTokSet[1024];
   if(limit==1){   
