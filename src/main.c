@@ -14,6 +14,7 @@ void checkType(char *input)
   if (strncmp("echo",com_tocheck,4)==0 || 
       strncmp("exit",com_tocheck,4)==0 ||
       strncmp("pwd",com_tocheck,4)==0 ||
+      strncmp("cd",com_tocheck,4)==0 ||
       strncmp("type",com_tocheck,4)==0)
   {
     printf("%s is a shell builtin\n",input+5);
@@ -90,6 +91,14 @@ int main(int argc, char *argv[]) {
       char pwd[100];
       printf("%s\n",getcwd(pwd,sizeof(pwd)));
       continue;
+    }
+
+    //print present working directory
+    else if (strncmp("cd",input,4)==0)
+    {
+      if(chdir(argv[1])){
+        printf("cd: %s: No such file or directory\n",argv[1]);
+      }
     }
     
     char *args[1024];
