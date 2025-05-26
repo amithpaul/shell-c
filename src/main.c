@@ -82,6 +82,12 @@ int main(int argc, char *argv[]) {
       checkType(input);
       continue;
     }
+
+    //print present working directory
+    else if (strncmp("pwd",input,4)==0)
+    {
+      printf("%s\n",path);
+    }
     
     char *args[1024];
     int i = 0;
