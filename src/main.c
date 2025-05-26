@@ -87,7 +87,9 @@ int main(int argc, char *argv[]) {
     //print present working directory
     else if (strncmp("pwd",input,4)==0)
     {
-      printf("%s\n",path);
+      char pwd[100];
+      printf("%s",getcwd(pwd,sizeof(pwd)));
+      continue;
     }
     
     char *args[1024];
