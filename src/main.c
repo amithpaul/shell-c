@@ -46,12 +46,12 @@ char getTok(char *Tok, int limit){
   char *newTok= strtok(Tok," ");
   char *newTokSet[1024];
   if(limit==1){   
-    return *newTok;
+    return newTok;
   }
   else{
     snprintf(newTokSet,sizeof(newTok),"%s",newTok);
     while(newTok!=NULL){
-      *newTok= strtok(Tok," ");
+      newTok= strtok(Tok," ");
       snprintf(newTokSet,sizeof(newTok)," %s",newTok);
     }
     free(newTok);
@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
       checkType(input);
       
     }
-    else if (strstr(path,getTok(input,1))!=NULL)
+    else if (strstr(path,strtok(input," "))!=NULL)
     {
       char execPath[MAX_COM_LENGTH+sizeof(path)];
       snprintf(execPath,sizeof(execPath),"%s/%s",path,getTok(input,0));
