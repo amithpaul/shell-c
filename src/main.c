@@ -11,7 +11,7 @@ void checkType(char *input)
   char *com_tocheck= input +5;
 
   if (strncmp("echo",com_tocheck,4)==0 || 
-      strncmp("exit",com_tocheck+5,4)==0 ||
+      strncmp("exit",com_tocheck,4)==0 ||
       strncmp("type",com_tocheck,4)==0 )
   {
     printf("%s is a shell builtin\n",input+5);
@@ -39,9 +39,7 @@ void checkType(char *input)
   }    
   
   printf("%s: not found\n",input+5);
-  return;
-  
-      
+  return;     
 }
 
 int main(int argc, char *argv[]) {
