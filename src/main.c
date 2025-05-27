@@ -93,8 +93,8 @@ int main(int argc, char *argv[]) {
       continue;
     }
 
-    //print present working directory
-    else if (strncmp("cd",input,2)==0)
+    //change directory
+    else if (strncmp("cd ",input,3)==0)
     {
       if(chdir(argv[1])){
         printf("cd: %s: No such file or directory\n",argv[1]);
